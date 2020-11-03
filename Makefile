@@ -2,8 +2,8 @@ SRC_DIR=src
 BIN_DIR=bin
 
 CPP=g++
-CPPFLAGS=-c -fPIC -std=c++14
-INCLUDE=-I/mnt/b/libs
+CPPFLAGS=-c -O3 -fPIC -std=c++14
+INCLUDE=-Ilibs
 
 all: main
 

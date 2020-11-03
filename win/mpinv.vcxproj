@@ -112,7 +112,7 @@
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <EnableModules>false</EnableModules>
-      <AdditionalIncludeDirectories>B:\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,7 +131,7 @@
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <EnableModules>false</EnableModules>
-      <AdditionalIncludeDirectories>B:\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,7 +152,7 @@
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <EnableModules>false</EnableModules>
-      <AdditionalIncludeDirectories>B:\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -175,7 +175,7 @@
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <EnableModules>false</EnableModules>
-      <AdditionalIncludeDirectories>B:\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -3,7 +3,7 @@ bin/*
 lib/*
 obj/*
 env*/*
-libs/*/
+libs/*/*
 
 
 *.ipynb
