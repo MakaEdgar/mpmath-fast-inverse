@@ -7,6 +7,7 @@
 #include <cassert>
 #include <utility>
 #include <new>
+#include <string>
 
 #include <boost/multiprecision/cpp_dec_float.hpp>
 #include <boost/multiprecision/eigen.hpp>
@@ -19,8 +20,6 @@ number<boost::multiprecision::backends::cpp_dec_float<MP_PRECISION>> doubleMP;
 typedef Eigen::Matrix<doubleMP, Eigen::Dynamic, Eigen::Dynamic> MatrixMP;
 
 
-// set use_cholesky if M is symmetric - it's faster and more stable
-// for dep paring it won't be
 template <typename MatrixType>
 inline typename MatrixType::Scalar _logdet(const MatrixType& M, bool use_cholesky = false) {
 	using namespace Eigen;
@@ -89,20 +88,19 @@ MatrixMP& _get_matrix(void* ptr_mpmat) {
 
 
 
+
 mpmat::mpmat() {
 	ptr_mpmat = nullptr;
 	ptr_mpmat_inv = nullptr;
 	int cols = 0;
 	int rows = 0;
 }
-
-
 mpmat::mpmat(const char* file_in) {
 	std::ifstream ifs(file_in);
 	if (ifs.is_open()) {
-		ifs >> cols >> rows;
+		ifs >> rows >> cols;
 
-		MatrixMP* ptr_matrix = new MatrixMP(cols,rows);
+		MatrixMP* ptr_matrix = new MatrixMP(rows, cols);
 		ptr_mpmat = (void*)ptr_matrix;
 
 		for (int row = 0; row != rows; ++row)
@@ -115,15 +113,10 @@ mpmat::mpmat(const char* file_in) {
 	ifs.close();
 
 }
-
-void mpmat::clear_ptr_mpmat(void* ptr_mpmat) {
-	if (ptr_mpmat) {
-		delete (MatrixMP*)ptr_mpmat;
-	}
+mpmat::mpmat(int cols_, int rows_) : cols(cols_), rows(rows_) {
+	MatrixMP* ptr_matrix = new MatrixMP(cols, rows);
+	ptr_mpmat = (void*)ptr_matrix;
 }
-
-
-
 
 
 mpmat::~mpmat() {
@@ -136,6 +129,35 @@ mpmat::~mpmat() {
 }
 
 
+
+void mpmat::set_matrix_coeff(int i, int j, const char* doubleMP_str) {
+	_get_matrix(ptr_mpmat)(i, j) = doubleMP(doubleMP_str);
+}
+
+void _get_matrix_coeff(int i, int j, void* ptr_mpmat, char* coeff_chars) {
+	doubleMP& d = _get_matrix(ptr_mpmat)(i, j);
+	std::string d_str = d.str();
+	//const char* d_chars = &d_str[0];
+	strcpy(coeff_chars, &d_str[0]);
+}
+
+const char* mpmat::get_matrix_coeff(int i, int j) {
+	_get_matrix_coeff(i, j, ptr_mpmat, _curr_coeff_chars);
+	return _curr_coeff_chars;
+}
+const char* mpmat::get_matrix_inv_coeff(int i, int j) {
+	_get_matrix_coeff(i, j, ptr_mpmat_inv, _curr_coeff_chars);
+	return _curr_coeff_chars;
+}
+
+
+
+
+void mpmat::clear_ptr_mpmat(void* ptr_mpmat) {
+	if (ptr_mpmat) {
+		delete (MatrixMP*)ptr_mpmat;
+	}
+}
 
 void mpmat::load_mpmat(const char* file_in) {
 	this->~mpmat();
@@ -158,15 +180,6 @@ void mpmat::save_mpmat_inv(const char* file_out) {
 }
 
 
-void mpmat::calc_logdet(bool is_symmetric) {
-	if (is_symmetric) {
-		logdet = _logdet_LDLT(_get_matrix(ptr_mpmat), is_symmetric).convert_to<double>();
-	}
-	else {
-		logdet = _logdet(_get_matrix(ptr_mpmat), false).convert_to<double>();
-	}
-
-}
 void mpmat::calc_logdet1(bool is_symmetric) {
 	logdet = _logdet(_get_matrix(ptr_mpmat), is_symmetric).convert_to<double>();
 }
@@ -179,15 +192,22 @@ void mpmat::calc_logdet3(bool is_symmetric) {
 
 
 
+
+void mpmat::calc_logdet(bool is_symmetric) {
+	if (is_symmetric) {
+		logdet = _logdet_LDLT(_get_matrix(ptr_mpmat), is_symmetric).convert_to<double>();
+	}
+	else {
+		logdet = _logdet(_get_matrix(ptr_mpmat), false).convert_to<double>();
+	}
+
+}
 void mpmat::calc_invert() {
 	clear_ptr_mpmat(ptr_mpmat_inv);
 
 	MatrixMP* ptr_matrix_inv = new MatrixMP(_get_matrix(ptr_mpmat).inverse());
 	ptr_mpmat_inv = (void*)ptr_matrix_inv;
 }
-
-
-
 
 std::pair<doubleMP, MatrixMP> _calc_invert_with_logdet(MatrixMP& m, bool is_symmetric = false) {
 	assert(is_symmetric && "Only symmetric matrix allowed in _calc_invert_with_logdet");
@@ -204,7 +224,6 @@ std::pair<doubleMP, MatrixMP> _calc_invert_with_logdet(MatrixMP& m, bool is_symm
 
 }
 
-
 void mpmat::calc_invert_with_logdet(bool is_symmetric) {
 
 	clear_ptr_mpmat(ptr_mpmat_inv);
@@ -216,8 +235,6 @@ void mpmat::calc_invert_with_logdet(bool is_symmetric) {
 	MatrixMP* ptr_matrix_inv = new MatrixMP(logdet_and_invmat_pair.second);
 	ptr_mpmat_inv = (void*)ptr_matrix_inv;
 }
-
-
 
 double mpmat::get_logdet() {
 	return logdet;

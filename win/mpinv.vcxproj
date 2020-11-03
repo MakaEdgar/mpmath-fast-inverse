@@ -30,6 +30,7 @@
     <None Include="..\Makefile" />
     <None Include="..\pympinv2.sip" />
     <None Include="..\pyproject.toml" />
+    <None Include="8x8.mpmat" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

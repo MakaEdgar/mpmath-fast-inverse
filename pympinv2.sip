@@ -8,12 +8,17 @@ class mpmat {
 
     public:
 		const char* version_;
-        int cols;
-		int rows;
+        int rows;
+		int cols;
 
 		mpmat();
 		mpmat(const char*);
-        
+		mpmat(int rows_, int cols_);
+
+		void set_matrix_coeff(int i, int j, const char* doubleMP_str);
+		const char* get_matrix_coeff(int i, int j);
+		const char* get_matrix_inv_coeff(int i, int j);
+
         void load_mpmat(const char*);
 		void save_mpmat(const char*);
         void save_mpmat_inv(const char*);

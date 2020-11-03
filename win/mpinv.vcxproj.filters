@@ -43,5 +43,8 @@
     <None Include="..\pyproject.toml">
       <Filter>Build Files</Filter>
     </None>
+    <None Include="8x8.mpmat">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
