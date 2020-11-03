@@ -1,7 +1,6 @@
 #!/bin/bash
 
-WHL_NAME=py_mpinv2-0.1-cp36-cp36m-manylinux1_x86_64.whl
-
+WHL_NAME=py_mpinv2
 
 #Prepare required libraries
 [ ! -d "./libs/Eigen" ] && tar -xzf libs/Eigen-3_3_8.tar.gz -C libs
@@ -16,12 +15,15 @@ make clean
 
 # Build wheel python library
 make
-sip-wheel --name py-mpinv2
-mv ${WHL_NAME} bin
-
-
-# Install lib and run python (in env)
 python3 -m venv env1
 source env1/bin/activate
-pip3 install bin/${WHL_NAME}
+pip3 install sip
+sip-wheel --name ${WHL_NAME}
+
+mv ${WHL_NAME}*.whl bin
+
+# Install lib and run python (in env)
+#python3 -m venv env1
+#source env1/bin/activate
+pip3 install bin/${WHL_NAME}*.whl
 python3 -ic 'from mpinv2 import mpmat;a=mpmat("./test/8x8.mpmat");print(a.version_)'
