@@ -4,9 +4,12 @@ lib/*
 obj/*
 env*/*
 libs/*/*
+whls/*
 
+*.whl
 
-*.ipynb
+./*.ipynb
+./*.mpmat
 
 src/*/*/*.o
 src/*/*.o
@@ -14,15 +17,9 @@ src/*.o
 
 **~
 
-*.whl
 
 win/**
 !win/mpinv.sln
 !win/mpinv.vcxproj
 !win/mpinv.vcxproj.filters
 !win/8x8.mpmat
-
-
-
-
-

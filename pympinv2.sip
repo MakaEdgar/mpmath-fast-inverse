@@ -7,6 +7,7 @@ class mpmat {
     %End
 
     public:
+		const char* version_;
         int cols;
 		int rows;
 

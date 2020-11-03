@@ -16,6 +16,7 @@ class mpmat {
 
 
 public:
+	const char* version_ = "0.1.0";
 	int cols = 0;
 	int rows = 0;
 

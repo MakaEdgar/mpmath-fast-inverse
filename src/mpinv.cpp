@@ -224,8 +224,11 @@ double mpmat::get_logdet() {
 }
 
 void mpmat::get_data(const char* data) {
-	std::cout << typeid(data).name() << std::endl;
+	//std::cout << typeid(data).name() << std::endl;
 	std::cout << data << std::endl;
+	doubleMP d = doubleMP(data);
+	std::cout << d << std::endl;
+	std::cout << 2*d << std::endl;
 }
 
 
