@@ -2,10 +2,9 @@
 
 PKG_NAME=py_mpinv2
 
-#Prepare required libraries
+echo 'Preparing required libraries, may take a while'
 [ ! -d "./libs/Eigen" ] && tar -xzf libs/Eigen-3_3_8.tar.gz -C libs
 [ ! -d "./libs/boost" ] && tar -xzf libs/boost-1_74_0.tar.gz -C libs
-
 
 # Clean build files
 rm -rf build/*
