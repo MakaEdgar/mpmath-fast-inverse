@@ -4,9 +4,9 @@ mpinv2: python library to calculate mp.matrix invert and logdet.
 
 How to use:
 1. clone git repo
-2. execute ./run_ruild.sh
-3. after successful building py_mpinv2*.whl file will be created in bin/py_module/, together with python wrapper mpinv.py
-4. execute "pip3 install --user py_mpinv2-blabla.whl"
+2. execute `./run_build.sh`
+3. after successful building `py_mpinv2*.whl` file will be created in bin/py_module/, together with python wrapper `mpinv.py`
+4. execute `pip3 install --user py_mpinv2*.whl`
 5. import mpinv.py and use functions:
 ```
     m_inv = fast_mp_matrix_inverse_symm(m)                                  # returns mpmath.matrix
