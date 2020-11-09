@@ -16,6 +16,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="SIP build files">
+      <UniqueIdentifier>{55e0fb7e-0ac8-49f5-bca3-1823887c960b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>{abf58256-8e9a-4f91-a854-e97b5cf03080}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -31,20 +37,20 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\.gitignore">
-      <Filter>Build Files</Filter>
-    </None>
     <None Include="..\Makefile">
       <Filter>Build Files</Filter>
     </None>
-    <None Include="..\pympinv2.sip">
+    <None Include="..\run_build.sh">
       <Filter>Build Files</Filter>
+    </None>
+    <None Include="..\pympinv2.sip">
+      <Filter>SIP build files</Filter>
     </None>
     <None Include="..\pyproject.toml">
-      <Filter>Build Files</Filter>
+      <Filter>SIP build files</Filter>
     </None>
-    <None Include="8x8.mpmat">
-      <Filter>Resource Files</Filter>
+    <None Include="..\.gitignore">
+      <Filter>Other</Filter>
     </None>
   </ItemGroup>
 </Project>
