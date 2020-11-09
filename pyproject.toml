@@ -3,11 +3,11 @@ requires = ["sip >=5, <6"]
 build-backend = "sipbuild.api"
 
 [tool.sip.metadata]
-name = "pympinv2"
+name = "pympinv"
 version = "0.1"
 license = "MIT"
 
-[tool.sip.bindings.pympinv2]
+[tool.sip.bindings.pympinv]
 headers = ["mpinv.h"]
 libraries = ["mpinv"]
 include-dirs = ["src"]
