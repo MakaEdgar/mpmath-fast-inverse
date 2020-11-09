@@ -1,4 +1,4 @@
-%Module(name=mpinv2, language="C++")
+%Module(name=mpinv, language="C++")
 %DefaultEncoding "UTF-8"
 
 class mpmat {
