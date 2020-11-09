@@ -1,22 +1,17 @@
 build/*
 bin/*
-lib/*
-obj/*
-env*/*
 libs/*/*
-whls/*
 
+env*/*
+
+*.tar.gz
 *.whl
+.ipynb_checkpoints
+__pycache__
+*.o
 
 ./*.ipynb
 ./*.mpmat
-
-src/*/*/*.o
-src/*/*.o
-src/*.o
-
-**~
-
 
 win/**
 !win/mpinv.sln
