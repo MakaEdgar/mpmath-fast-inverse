@@ -47,8 +47,8 @@ class mpmat {
 		void calc_inverse_with_logdet_LDLT();
 		void calc_inverse_with_logdet();
 
-		double get_logdet(bool to_calculate=true);
-		double get_det(bool to_calculate=true);
-
+		double get_logdet();
+		double get_det();
+		double get_det_str();
 
 };

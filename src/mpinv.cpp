@@ -353,14 +353,13 @@ void mpmat::calc_inverse_with_logdet() {
 }
 
 
-double mpmat::get_logdet(bool to_calculate) {
-	if (to_calculate)
-		calc_logdet();
+double mpmat::get_logdet() {
 	return logdet;
 }
-double mpmat::get_det(bool to_calculate) {
-	if (to_calculate)
-		calc_det();
+double mpmat::get_det() {
 	return det;
+}
+const char* mpmat::get_det_str() {
+	return _det_str;
 }
 
