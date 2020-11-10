@@ -12,7 +12,7 @@ class mpmat:
                 self._mat.set_matrix_coeff(i,j,str(m[i,j])) 
                 
     def get_mat(self):
-        return mp.matrix([[self._mat.get_matrix_coeff(i,j) for j in range(m.cols)] for i in range(m.rows)])
+        return mp.matrix([[self._mat.get_matrix_coeff(i,j) for j in range(self._mat.cols)] for i in range(self._mat.rows)])
     
     def set_mat(self, m):
         self.__init__(m)
@@ -27,7 +27,7 @@ class mpmat:
                 self._mat.calc_inverse_LLT()
             elif method is "LDLT":
                 self._mat.calc_inverse_LDLT()
-        return mp.matrix([[self._mat.get_matrix_inv_coeff(i,j) for j in range(m.cols)] for i in range(m.rows)])
+        return mp.matrix([[self._mat.get_matrix_inv_coeff(i,j) for j in range(self._mat.cols)] for i in range(self._mat.rows)])
     
     def get_det(self, to_calculate=True, method="base", return_float=False):
         if to_calculate:
