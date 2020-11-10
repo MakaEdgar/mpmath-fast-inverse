@@ -29,8 +29,14 @@ int main(int, char**)
 {
 	using namespace Eigen;
 	std::cout << std::setprecision(std::numeric_limits<doubleMP>::digits10);
-
+	
 	//doubleMP d = doubleMP("12.354");
+	doubleMP d = doubleMP("0.01210293830491854692119401160222537082231024065816665");
+	
+
+
+	std::cout << d << std::endl;
+	
 	//std::cout << d << std::endl;
 	//
 	//std::string s = d.str();
