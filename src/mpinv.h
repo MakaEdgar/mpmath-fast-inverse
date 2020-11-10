@@ -2,7 +2,7 @@
 #define MPINV_H
 
 const int MP_PRECISION = 50;
-const int MAX_MP_PRECISION = 100;
+const int MAX_MP_PRECISION = MP_PRECISION + 50;  // Be careful! Always care about buffer size
 
 class mpmat {
 private:

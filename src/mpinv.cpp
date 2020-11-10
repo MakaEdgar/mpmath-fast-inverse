@@ -184,7 +184,9 @@ void _save_mpmat(const char* file_out, void* ptr_mpmat) {
 }
 void _doubleMP_to_str(doubleMP d, char* d_str) {
 	std::string d_string = d.str();
-	strcpy(d_str, &d_string[0]);
+	std::copy(d_string.begin(), d_string.end(), d_str);
+	//d_str = d_string.c_str();
+	//strcpy(d_str, &d_string[0]);
 }
 void _get_matrix_coeff(int i, int j, void* ptr_mpmat, char* coeff_str) {
 	doubleMP& d = _get_matrix(ptr_mpmat)(i, j);
