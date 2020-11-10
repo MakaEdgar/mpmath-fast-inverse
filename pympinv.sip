@@ -49,6 +49,6 @@ class mpmat {
 
 		double get_logdet();
 		double get_det();
-		double get_det_str();
+		const char* get_det_str();
 
 };
