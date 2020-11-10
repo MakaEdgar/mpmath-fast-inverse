@@ -4,11 +4,12 @@ using namespace std::chrono;
 #include <string>
 
 
+#include "mpinv.h"
 
 #include <boost/multiprecision/cpp_dec_float.hpp>
 #include <boost/multiprecision/eigen.hpp>
 #include <Eigen/Dense>
-const int MP_PRECISION = 50;
+//const int MP_PRECISION = 50;
 typedef boost::multiprecision::
 number<boost::multiprecision::backends::cpp_dec_float<MP_PRECISION>> doubleMP;
 typedef Eigen::Matrix<doubleMP, Eigen::Dynamic, Eigen::Dynamic> MatrixMP;
@@ -22,7 +23,6 @@ MatrixMP& _get_matrix2(void* ptr_mpmat) {
 
 
 
-#include "mpinv.h"
 
 
 int main(int, char**)
@@ -134,52 +134,3 @@ int main(int, char**)
 	return 0;
 }
 
-
-
-
-
-
-
-
-
-
-// old main
-// int main(int, char**) {
-//int N = 20;
-//MatrixMP A = MatrixMP::Random(N, N);
-//MatrixMP V(A);
-//V.transposeInPlace();
-//A += V;
-
-//std::cout << "Here is the matrix A:\n" << A << std::endl;
-//std::cout << std::endl;
-//std::cout << "The inverse of A is:\n" << A.inverse() << std::endl;
-
-//std::cout << "Start inversing matrix!" << std::endl;
-//MatrixMP B = A.inverse();
-//std::cout << "End inversing matrix!" << std::endl;
-//std::cout << std::endl;
-
-//std::ofstream ofs("inverse.txt");
-//ofs << std::setprecision(std::numeric_limits<doubleMP>::digits10);
-//ofs << B << std::endl;
-
-
-
-//doubleMP detA = A.determinant();
-//doubleMP detB = B.determinant();
-
-
-//std::cout << "Matrix determinant is " << detA << std::endl;
-//std::cout << "Inv Matrix determinant is " << detB << std::endl;
-//std::cout << "Mat * InvMat det product is " << detA * detB << std::endl;
-//std::cout << std::endl;
-
-//double detA_ = detA.convert_to<double>();
-//std::cout << "detA to double is " << detA_ << std::endl;
-//std::cout << "detA double log is " << std::log(detA_) << std::endl;
-//std::cout << std::endl;
-
-//std::cout << "Alternative logdet: " << logdet(A, false) << std::endl;
-//std::cout << "Alternative logdet2: " << logdet(A, true) << std::endl;
-//}

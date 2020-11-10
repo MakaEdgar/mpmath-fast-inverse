@@ -2,7 +2,7 @@ SRC_DIR=src
 BIN_DIR=bin
 
 CPP=g++
-CPPFLAGS=-c -O2 -fPIC -std=c++11
+CPPFLAGS=-c -fPIC -DNDEBUG -fno-math-errno -O3 -march=native -std=c++11
 INCLUDE=-Ilibs
 
 all: main

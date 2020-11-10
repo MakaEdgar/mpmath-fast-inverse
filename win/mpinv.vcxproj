@@ -28,9 +28,15 @@
   <ItemGroup>
     <None Include="..\.gitignore" />
     <None Include="..\Makefile" />
-    <None Include="..\pympinv2.sip" />
+    <None Include="..\pympinv.sip" />
     <None Include="..\pyproject.toml" />
     <None Include="..\run_build.sh" />
+    <None Include="..\src\setup_py\mpinv\mpinv_wrapper.py" />
+    <None Include="..\src\setup_py\mpinv\mpmath_wrapper.py" />
+    <None Include="..\src\setup_py\mpinv\__init__.py" />
+    <None Include="..\src\setup_py\setup.py" />
+    <None Include="..\test\test1.py" />
+    <None Include="..\test\test2.py" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

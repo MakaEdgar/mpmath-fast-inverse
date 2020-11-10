@@ -22,6 +22,12 @@
     <Filter Include="Other">
       <UniqueIdentifier>{abf58256-8e9a-4f91-a854-e97b5cf03080}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Python">
+      <UniqueIdentifier>{87ed12fd-c947-4de4-98e3-6fe042d06032}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{ec5d191b-10e7-4518-ad13-91aff72dd9a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -43,14 +49,32 @@
     <None Include="..\run_build.sh">
       <Filter>Build Files</Filter>
     </None>
-    <None Include="..\pympinv2.sip">
-      <Filter>SIP build files</Filter>
-    </None>
     <None Include="..\pyproject.toml">
       <Filter>SIP build files</Filter>
     </None>
     <None Include="..\.gitignore">
       <Filter>Other</Filter>
+    </None>
+    <None Include="..\pympinv.sip">
+      <Filter>SIP build files</Filter>
+    </None>
+    <None Include="..\src\setup_py\setup.py">
+      <Filter>Build Files</Filter>
+    </None>
+    <None Include="..\src\setup_py\mpinv\__init__.py">
+      <Filter>Python</Filter>
+    </None>
+    <None Include="..\src\setup_py\mpinv\mpinv_wrapper.py">
+      <Filter>Python</Filter>
+    </None>
+    <None Include="..\src\setup_py\mpinv\mpmath_wrapper.py">
+      <Filter>Python</Filter>
+    </None>
+    <None Include="..\test\test1.py">
+      <Filter>Tests</Filter>
+    </None>
+    <None Include="..\test\test2.py">
+      <Filter>Tests</Filter>
     </None>
   </ItemGroup>
 </Project>

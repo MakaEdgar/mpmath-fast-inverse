@@ -5,10 +5,10 @@ setuptools.setup(
     version="0.1",
     author="Edgar Makarov",
     author_email="e.makarov@skoltech.ru",
-    description="Library to fast calculation mp.matrix invert and logdet",
+    description="Library to fast calculation mp.matrix invert, det and logdet",
     #long_description=long_description,
     #long_description_content_type="text/markdown",
-    #url="https://github.com/pypa/sampleproject",
+    #url="https://gitlab.com/E.Makarov/multiprecision-matrix-inversion",
     packages=setuptools.find_packages(),
     package_data={'mpinv': ['mpinv*.so']},
     install_requires=[

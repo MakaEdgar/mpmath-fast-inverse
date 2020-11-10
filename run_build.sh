@@ -18,10 +18,10 @@ make
 python3 -m venv env1
 source env1/bin/activate
 pip3 install sip -q --disable-pip-version-check
-sip-build
+sip-build --verbose
 
 cp -r src/setup_py/ bin
-cp build/${PKG_NAME}/${PKG_NAME}*.so bin/setup_py/${PKG_NAME}
+cp build/${PKG_NAME}/${PKG_NAME}*.so bin/setup_py/${PKG_NAME} 
 
 python3 -m pip install --upgrade setuptools wheel
 cd bin/setup_py
