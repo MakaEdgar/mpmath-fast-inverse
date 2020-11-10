@@ -8,15 +8,12 @@ class mpmat {
 private:
 	void* ptr_mpmat = nullptr;
 	void* ptr_mpmat_inv = nullptr;
-	double logdet = 0.0;
+
 	double det = 0.0;
-		
-	void _clear_ptr_mpmat(void* ptr_mpmat);
+	double logdet = 0.0;
 
-	char _curr_coeff_chars[MAX_MP_PRECISION + 1] = "";
-	void _get_matrix_coeff(int i, int j, void* ptr_mpmat, char* coeff_chars);
-
-	void _save_mpmat(const char* file_out, void* ptr_mpmat);
+	char _det_str[MAX_MP_PRECISION + 1] = "";
+	char _curr_coeff_str[MAX_MP_PRECISION + 1] = "";
 
 public:
 	const char* _VERSION = "0.1.2";

@@ -21,6 +21,7 @@ typedef boost::multiprecision::
 number<boost::multiprecision::backends::cpp_dec_float<MP_PRECISION>> doubleMP;
 typedef Eigen::Matrix<doubleMP, Eigen::Dynamic, Eigen::Dynamic> MatrixMP;
 
+// Private mpinv.cpp functions
 doubleMP _logdet_eigen(const MatrixMP& m) {
 	return log(m.determinant());
 }
@@ -174,12 +175,31 @@ MatrixMP& _get_matrix(void* ptr_mpmat) {
 	assert(ptr_mpmat && "matrix is not initialized");
 	return *((MatrixMP*)ptr_mpmat);
 }
+void _save_mpmat(const char* file_out, void* ptr_mpmat) {
+	MatrixMP& m = _get_matrix(ptr_mpmat);
+	std::ofstream ofs(file_out);
+	ofs << m.cols() << " " << m.rows() << std::endl;
+	ofs << std::setprecision(std::numeric_limits<doubleMP>::digits10);
+	ofs << _get_matrix(ptr_mpmat) << std::endl;
+}
+void _doubleMP_to_str(doubleMP d, char* d_str) {
+	std::string d_string = d.str();
+	strcpy(d_str, &d_string[0]);
+}
+void _get_matrix_coeff(int i, int j, void* ptr_mpmat, char* coeff_str) {
+	doubleMP& d = _get_matrix(ptr_mpmat)(i, j);
+	_doubleMP_to_str(d, coeff_str);
+}
+void _clear_ptr_mpmat(void* ptr_mpmat) {
+	if (ptr_mpmat) {
+		delete (MatrixMP*)ptr_mpmat;
+	}
+}
 
 
 
 
-
-
+// mpinv class public functions
 mpmat::mpmat() {
 	ptr_mpmat = nullptr;
 	ptr_mpmat_inv = nullptr;
@@ -209,11 +229,6 @@ mpmat::mpmat(int cols_, int rows_) : cols(cols_), rows(rows_) {
 	ptr_mpmat = (void*)ptr_matrix;
 }
 
-void mpmat::_clear_ptr_mpmat(void* ptr_mpmat) {
-	if (ptr_mpmat) {
-		delete (MatrixMP*)ptr_mpmat;
-	}
-}
 mpmat::~mpmat() {
 	_clear_ptr_mpmat(this->ptr_mpmat);
 	_clear_ptr_mpmat(this->ptr_mpmat_inv);
@@ -226,30 +241,19 @@ mpmat::~mpmat() {
 void mpmat::set_matrix_coeff(int i, int j, const char* doubleMP_str) {
 	_get_matrix(ptr_mpmat)(i, j) = doubleMP(doubleMP_str);
 }
-void mpmat::_get_matrix_coeff(int i, int j, void* ptr_mpmat, char* coeff_chars) {
-	doubleMP& d = _get_matrix(ptr_mpmat)(i, j);
-	std::string d_str = d.str();
-	strcpy(coeff_chars, &d_str[0]);
-}
 const char* mpmat::get_matrix_coeff(int i, int j) {
-	_get_matrix_coeff(i, j, ptr_mpmat, _curr_coeff_chars);
-	return _curr_coeff_chars;
+	_get_matrix_coeff(i, j, ptr_mpmat, _curr_coeff_str);
+	return _curr_coeff_str;
 }
 const char* mpmat::get_matrix_inv_coeff(int i, int j) {
-	_get_matrix_coeff(i, j, ptr_mpmat_inv, _curr_coeff_chars);
-	return _curr_coeff_chars;
+	_get_matrix_coeff(i, j, ptr_mpmat_inv, _curr_coeff_str);
+	return _curr_coeff_str;
 }
 
 void mpmat::load_mpmat(const char* file_in) {
 	this->~mpmat();
 	//this->mpmat::mpmat(file_in);    // deprecated in g++
 	new (this) mpmat(file_in);
-}
-void mpmat::_save_mpmat(const char* file_out, void* ptr_mpmat) {
-	std::ofstream ofs(file_out);
-	ofs << cols << " " << rows << std::endl;
-	ofs << std::setprecision(std::numeric_limits<doubleMP>::digits10);
-	ofs << _get_matrix(ptr_mpmat) << std::endl;
 }
 void mpmat::save_mpmat(const char* file_out) {
 	_save_mpmat(file_out, ptr_mpmat);
@@ -273,16 +277,24 @@ void mpmat::calc_logdet() {
 }
 
 void mpmat::calc_det_LU() {
-	det = _det_LU(_get_matrix(ptr_mpmat)).convert_to<double>();
+	doubleMP det_ = _det_LU(_get_matrix(ptr_mpmat));
+	det = det_.convert_to<double>();
+	_doubleMP_to_str(det_, _det_str);
 }
 void mpmat::calc_det_LLT() {
-	det = _det_LLT(_get_matrix(ptr_mpmat)).convert_to<double>();
+	doubleMP det_ = _det_LLT(_get_matrix(ptr_mpmat));
+	det = det_.convert_to<double>();
+	_doubleMP_to_str(det_, _det_str);
 }
 void mpmat::calc_det_LDLT() {
-	det = _det_LDLT(_get_matrix(ptr_mpmat)).convert_to<double>();
+	doubleMP det_ = _det_LDLT(_get_matrix(ptr_mpmat));
+	det = det_.convert_to<double>();
+	_doubleMP_to_str(det_, _det_str);
 }
 void mpmat::calc_det() {
-	det = _det_eigen(_get_matrix(ptr_mpmat)).convert_to<double>();
+	doubleMP det_ = _det_eigen(_get_matrix(ptr_mpmat));
+	det = det_.convert_to<double>();
+	_doubleMP_to_str(det_, _det_str);
 }
 
 void mpmat::calc_inverse_LU() {
