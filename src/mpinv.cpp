@@ -19,14 +19,14 @@
 //const int MP_PRECISION defined in mpinv.h
 typedef boost::multiprecision::
 number<boost::multiprecision::backends::cpp_dec_float<MP_PRECISION>> doubleMP;
-typedef Eigen::Matrix<doubleMP, Eigen::Dynamic, Eigen::Dynamic> MatrixMP;
+typedef Eigen::Matrix<doubleMP, Eigen::Dynamic, Eigen::Dynamic> matrixMP;
 
 // Private mpinv.cpp functions
-doubleMP _logdet_eigen(const MatrixMP& m) {
+doubleMP _logdet_eigen(const matrixMP& m) {
 	return log(m.determinant());
 }
-doubleMP _logdet_LU(const MatrixMP& m) {
-	Eigen::PartialPivLU<MatrixMP> lu(m);
+doubleMP _logdet_LU(const matrixMP& m) {
+	Eigen::PartialPivLU<matrixMP> lu(m);
 	auto& LU = lu.matrixLU();
 	
 	doubleMP logdet_val = doubleMP("0.0");
@@ -40,9 +40,9 @@ doubleMP _logdet_LU(const MatrixMP& m) {
 
 	return logdet_val;
 }
-doubleMP _logdet_LLT(const MatrixMP& m) {
+doubleMP _logdet_LLT(const matrixMP& m) {
 	//assert(is_symmetric && "Only symmetric matrix allowed in _logdet_LLT");
-	Eigen::LLT<MatrixMP> llt(m);
+	Eigen::LLT<matrixMP> llt(m);
 	auto& U = llt.matrixU();
 
 	doubleMP logdet_val = doubleMP("0.0");
@@ -52,9 +52,9 @@ doubleMP _logdet_LLT(const MatrixMP& m) {
 
 	return logdet_val;
 }
-doubleMP _logdet_LDLT(const MatrixMP& m) {
+doubleMP _logdet_LDLT(const matrixMP& m) {
 	//assert(is_symmetric && "Only symmetric matrix allowed in _logdet_LDLT");
-	Eigen::LDLT<MatrixMP> ldlt(m);
+	Eigen::LDLT<matrixMP> ldlt(m);
 
 	doubleMP logdet_val = doubleMP("0.0");
 	const auto& D = ldlt.vectorD();
@@ -64,12 +64,12 @@ doubleMP _logdet_LDLT(const MatrixMP& m) {
 	return logdet_val;
 }
 
-doubleMP _det_eigen(const MatrixMP& m) {
+doubleMP _det_eigen(const matrixMP& m) {
 	return m.determinant();
 }
-doubleMP _det_LU(const MatrixMP& m) {
+doubleMP _det_LU(const matrixMP& m) {
 	doubleMP logdet_val = 0;
-	Eigen::PartialPivLU<MatrixMP> lu(m);
+	Eigen::PartialPivLU<matrixMP> lu(m);
 	auto& LU = lu.matrixLU();
 
 	doubleMP det_val = doubleMP("1.0");
@@ -84,9 +84,9 @@ doubleMP _det_LU(const MatrixMP& m) {
 
 	return det_val;
 }
-doubleMP _det_LLT(const MatrixMP& m) {
+doubleMP _det_LLT(const matrixMP& m) {
 	//assert(is_symmetric && "Only symmetric matrix allowed in _logdet_LLT");
-	Eigen::LLT<MatrixMP> llt(m);
+	Eigen::LLT<matrixMP> llt(m);
 	auto& U = llt.matrixU();
 
 	doubleMP det_val = doubleMP("1.0");
@@ -96,9 +96,9 @@ doubleMP _det_LLT(const MatrixMP& m) {
 
 	return det_val;
 }
-doubleMP _det_LDLT(const MatrixMP& m) {
+doubleMP _det_LDLT(const matrixMP& m) {
 	//assert(is_symmetric && "Only symmetric matrix allowed in _logdet_LDLT");
-	Eigen::LDLT<MatrixMP> ldlt(m);
+	Eigen::LDLT<matrixMP> ldlt(m);
 
 	doubleMP det_val = doubleMP("1.0");
 	const auto& D = ldlt.vectorD();
@@ -108,24 +108,24 @@ doubleMP _det_LDLT(const MatrixMP& m) {
 	return det_val;
 }
 
-MatrixMP _inverse_eigen(const MatrixMP& m) {
+matrixMP _inverse_eigen(const matrixMP& m) {
 	return m.inverse();
 }
-MatrixMP _inverse_LU(const MatrixMP& m) {
-	Eigen::PartialPivLU<MatrixMP> lu(m);
-	return lu.solve(MatrixMP::Identity(m.cols(), m.rows()));
+matrixMP _inverse_LU(const matrixMP& m) {
+	Eigen::PartialPivLU<matrixMP> lu(m);
+	return lu.solve(matrixMP::Identity(m.cols(), m.rows()));
 }
-MatrixMP _inverse_LLT(const MatrixMP& m) {
-	Eigen::LLT<MatrixMP> llt(m);
-	return llt.solve(MatrixMP::Identity(m.cols(), m.rows()));
+matrixMP _inverse_LLT(const matrixMP& m) {
+	Eigen::LLT<matrixMP> llt(m);
+	return llt.solve(matrixMP::Identity(m.cols(), m.rows()));
 }
-MatrixMP _inverse_LDLT(const MatrixMP& m) {
-	Eigen::LDLT<MatrixMP> ldlt(m);
-	return ldlt.solve(MatrixMP::Identity(m.cols(), m.rows()));
+matrixMP _inverse_LDLT(const matrixMP& m) {
+	Eigen::LDLT<matrixMP> ldlt(m);
+	return ldlt.solve(matrixMP::Identity(m.cols(), m.rows()));
 }
 
-std::pair<doubleMP, MatrixMP> _calc_inverse_with_logdet_LU(MatrixMP& m) {
-	Eigen::PartialPivLU<MatrixMP> lu(m);
+std::pair<doubleMP, matrixMP> _calc_inverse_with_logdet_LU(matrixMP& m) {
+	Eigen::PartialPivLU<matrixMP> lu(m);
 	auto& LU = lu.matrixLU();
 
 	doubleMP logdet_val = doubleMP("0.0");
@@ -137,13 +137,13 @@ std::pair<doubleMP, MatrixMP> _calc_inverse_with_logdet_LU(MatrixMP& m) {
 	}
 	logdet_val += log(c);
 
-	MatrixMP m_inv = lu.solve(MatrixMP::Identity(m.cols(), m.rows()));
+	matrixMP m_inv = lu.solve(matrixMP::Identity(m.cols(), m.rows()));
 
 	return std::make_pair(logdet_val, m_inv);
 
 }
-std::pair<doubleMP, MatrixMP> _calc_inverse_with_logdet_LLT(MatrixMP& m) {
-	Eigen::LLT<MatrixMP> llt(m);
+std::pair<doubleMP, matrixMP> _calc_inverse_with_logdet_LLT(matrixMP& m) {
+	Eigen::LLT<matrixMP> llt(m);
 	auto& U = llt.matrixU();
 
 	doubleMP logdet_val = doubleMP("0.0");
@@ -151,32 +151,32 @@ std::pair<doubleMP, MatrixMP> _calc_inverse_with_logdet_LLT(MatrixMP& m) {
 		logdet_val += log(U(i, i));
 	logdet_val *= 2;
 
-	MatrixMP m_inv = llt.solve(MatrixMP::Identity(m.cols(), m.rows()));
+	matrixMP m_inv = llt.solve(matrixMP::Identity(m.cols(), m.rows()));
 
 	return std::make_pair(logdet_val, m_inv);
 
 }
-std::pair<doubleMP, MatrixMP> _calc_inverse_with_logdet_LDLT(MatrixMP& m) {
-	Eigen::LDLT<MatrixMP> ldlt(m);
+std::pair<doubleMP, matrixMP> _calc_inverse_with_logdet_LDLT(matrixMP& m) {
+	Eigen::LDLT<matrixMP> ldlt(m);
 
 	doubleMP logdet_val = doubleMP("0.0");
 	const auto& D = ldlt.vectorD();
 	for (int i = 0; i < m.rows(); ++i)
 		logdet_val += log(D(i));
 
-	MatrixMP m_inv = ldlt.solve(MatrixMP::Identity(m.cols(), m.rows()));
+	matrixMP m_inv = ldlt.solve(matrixMP::Identity(m.cols(), m.rows()));
 
 	return std::make_pair(logdet_val, m_inv);
 
 }
 
 
-MatrixMP& _get_matrix(void* ptr_mpmat) {
+matrixMP& _get_matrix(void* ptr_mpmat) {
 	assert(ptr_mpmat && "matrix is not initialized");
-	return *((MatrixMP*)ptr_mpmat);
+	return *((matrixMP*)ptr_mpmat);
 }
 void _save_mpmat(const char* file_out, void* ptr_mpmat) {
-	MatrixMP& m = _get_matrix(ptr_mpmat);
+	matrixMP& m = _get_matrix(ptr_mpmat);
 	std::ofstream ofs(file_out);
 	ofs << m.cols() << " " << m.rows() << std::endl;
 	ofs << std::setprecision(std::numeric_limits<doubleMP>::digits10);
@@ -194,7 +194,7 @@ void _get_matrix_coeff(int i, int j, void* ptr_mpmat, char* coeff_str) {
 }
 void _clear_ptr_mpmat(void* ptr_mpmat) {
 	if (ptr_mpmat) {
-		delete (MatrixMP*)ptr_mpmat;
+		delete (matrixMP*)ptr_mpmat;
 	}
 }
 
@@ -213,7 +213,7 @@ mpmat::mpmat(const char* file_in) {
 	if (ifs.is_open()) {
 		ifs >> rows >> cols;
 
-		MatrixMP* ptr_matrix = new MatrixMP(rows, cols);
+		matrixMP* ptr_matrix = new matrixMP(rows, cols);
 		ptr_mpmat = (void*)ptr_matrix;
 
 		for (int row = 0; row != rows; ++row)
@@ -227,7 +227,7 @@ mpmat::mpmat(const char* file_in) {
 
 }
 mpmat::mpmat(int cols_, int rows_) : cols(cols_), rows(rows_) {
-	MatrixMP* ptr_matrix = new MatrixMP(cols, rows);
+	matrixMP* ptr_matrix = new matrixMP(cols, rows);
 	ptr_mpmat = (void*)ptr_matrix;
 }
 
@@ -301,25 +301,25 @@ void mpmat::calc_det() {
 
 void mpmat::calc_inverse_LU() {
 	_clear_ptr_mpmat(ptr_mpmat_inv);
-	MatrixMP* ptr_matrix_inv = new MatrixMP(_inverse_LU(_get_matrix(ptr_mpmat)));
+	matrixMP* ptr_matrix_inv = new matrixMP(_inverse_LU(_get_matrix(ptr_mpmat)));
 	ptr_mpmat_inv = (void*)ptr_matrix_inv;
 
 }
 void mpmat::calc_inverse_LLT() {
 	_clear_ptr_mpmat(ptr_mpmat_inv);
-	MatrixMP* ptr_matrix_inv = new MatrixMP(_inverse_LLT(_get_matrix(ptr_mpmat)));
+	matrixMP* ptr_matrix_inv = new matrixMP(_inverse_LLT(_get_matrix(ptr_mpmat)));
 	ptr_mpmat_inv = (void*)ptr_matrix_inv;
 
 }
 void mpmat::calc_inverse_LDLT() {
 	_clear_ptr_mpmat(ptr_mpmat_inv);
-	MatrixMP* ptr_matrix_inv = new MatrixMP(_inverse_LDLT(_get_matrix(ptr_mpmat)));
+	matrixMP* ptr_matrix_inv = new matrixMP(_inverse_LDLT(_get_matrix(ptr_mpmat)));
 	ptr_mpmat_inv = (void*)ptr_matrix_inv;
 
 }
 void mpmat::calc_inverse() {
 	_clear_ptr_mpmat(ptr_mpmat_inv);
-	MatrixMP* ptr_matrix_inv = new MatrixMP(_inverse_eigen(_get_matrix(ptr_mpmat)));
+	matrixMP* ptr_matrix_inv = new matrixMP(_inverse_eigen(_get_matrix(ptr_mpmat)));
 	ptr_mpmat_inv = (void*)ptr_matrix_inv;
 }
 
@@ -329,7 +329,7 @@ void mpmat::calc_inverse_with_logdet_LU() {
 
 	logdet = logdet_and_invmat_pair.first.convert_to<double>();
 
-	MatrixMP* ptr_matrix_inv = new MatrixMP(logdet_and_invmat_pair.second);
+	matrixMP* ptr_matrix_inv = new matrixMP(logdet_and_invmat_pair.second);
 	ptr_mpmat_inv = (void*)ptr_matrix_inv;
 }
 void mpmat::calc_inverse_with_logdet_LLT() {
@@ -338,7 +338,7 @@ void mpmat::calc_inverse_with_logdet_LLT() {
 
 	logdet = logdet_and_invmat_pair.first.convert_to<double>();
 
-	MatrixMP* ptr_matrix_inv = new MatrixMP(logdet_and_invmat_pair.second);
+	matrixMP* ptr_matrix_inv = new matrixMP(logdet_and_invmat_pair.second);
 	ptr_mpmat_inv = (void*)ptr_matrix_inv;
 }
 void mpmat::calc_inverse_with_logdet_LDLT() {
@@ -347,7 +347,7 @@ void mpmat::calc_inverse_with_logdet_LDLT() {
 
 	logdet = logdet_and_invmat_pair.first.convert_to<double>();
 
-	MatrixMP* ptr_matrix_inv = new MatrixMP(logdet_and_invmat_pair.second);
+	matrixMP* ptr_matrix_inv = new matrixMP(logdet_and_invmat_pair.second);
 	ptr_mpmat_inv = (void*)ptr_matrix_inv;
 }
 void mpmat::calc_inverse_with_logdet() {

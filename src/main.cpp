@@ -12,12 +12,12 @@ using namespace std::chrono;
 //const int MP_PRECISION = 50;
 typedef boost::multiprecision::
 number<boost::multiprecision::backends::cpp_dec_float<MP_PRECISION>> doubleMP;
-typedef Eigen::Matrix<doubleMP, Eigen::Dynamic, Eigen::Dynamic> MatrixMP;
+typedef Eigen::Matrix<doubleMP, Eigen::Dynamic, Eigen::Dynamic> matrixMP;
 
 
-MatrixMP& _get_matrix2(void* ptr_mpmat) {
+matrixMP& _get_matrix2(void* ptr_mpmat) {
 	assert(ptr_mpmat && "matrix is not initialized");
-	return *((MatrixMP*)ptr_mpmat);
+	return *((matrixMP*)ptr_mpmat);
 }
 
 
@@ -123,8 +123,8 @@ int main(int, char**)
 
 
 
-	////MatrixMP C = MatrixMP(*((MatrixMP*)m.ptr_mpmat));
-	//MatrixMP C = _get_matrix2(m.ptr_mpmat);
+	////matrixMP C = matrixMP(*((matrixMP*)m.ptr_mpmat));
+	//matrixMP C = _get_matrix2(m.ptr_mpmat);
 
 	//doubleMP d = C.determinant();
 
