@@ -180,7 +180,7 @@ void _save_mpmat(const char* file_out, void* ptr_mpmat) {
 	std::ofstream ofs(file_out);
 	ofs << m.cols() << " " << m.rows() << std::endl;
 	ofs << std::setprecision(std::numeric_limits<doubleMP>::digits10);
-	ofs << _get_matrix(ptr_mpmat) << std::endl;
+	ofs << m << std::endl;
 }
 void _doubleMP_to_str(doubleMP d, char* d_str) {
 	std::string d_string = d.str();
