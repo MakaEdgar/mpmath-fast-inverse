@@ -12,7 +12,6 @@
 #include <string>
 
 #include <boost/multiprecision/cpp_dec_float.hpp>
-#include <boost/multiprecision/eigen.hpp>
 #include <Eigen/Dense>
 
 

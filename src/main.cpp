@@ -7,7 +7,6 @@ using namespace std::chrono;
 #include "mpinv.h"
 
 #include <boost/multiprecision/cpp_dec_float.hpp>
-#include <boost/multiprecision/eigen.hpp>
 #include <Eigen/Dense>
 //const int MP_PRECISION = 50;
 typedef boost::multiprecision::
