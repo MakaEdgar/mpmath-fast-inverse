@@ -189,7 +189,8 @@ void _doubleMP_to_str(doubleMP d, char* d_str) {
 	//strcpy(d_str, &d_string[0]);
 }
 void _get_matrix_coeff(int i, int j, void* ptr_mpmat, char* coeff_str) {
-	doubleMP& d = _get_matrix(ptr_mpmat)(i, j);
+    memset(coeff_str, 0, MAX_MP_PRECISION * (sizeof coeff_str[0]));
+    doubleMP& d = _get_matrix(ptr_mpmat)(i, j);
 	_doubleMP_to_str(d, coeff_str);
 }
 void _clear_ptr_mpmat(void* ptr_mpmat) {
